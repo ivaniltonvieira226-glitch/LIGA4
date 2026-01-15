@@ -4,6 +4,17 @@
 #include <string.h>
 
 
+
+
+int jogar(int tabuleiro[6][7], Ficha jogador1, Ficha jogador2, int tema){
+    // Implementação da lógica do jogo
+
+    
+}
+
+
+
+
 typedef struct {
     int id;
     char user[100];
