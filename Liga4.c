@@ -17,8 +17,8 @@ int main() {
    srand(time(NULL));
    printf("Bem vindo ao Liga4!\n");
    puts("O jogo consiste em alinhar 4 peças na horizontal, vertical ou diagonal para vencer.");
-   while(1){
 
+   while(1){
    printf("Escolha o tema do jogo:\n1 - Individual(Player contra o computador)\n2 - Dois players\n3 - Simulado(computador contra computador)\n 4 - Sair\n");
    scanf("%d", &tema);
 
@@ -47,6 +47,6 @@ int main() {
         break;
     }
 
-            }
+        }
    return 0;
 }
