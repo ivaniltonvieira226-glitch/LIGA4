@@ -15,9 +15,10 @@ int main() {
    int tema;
 
    srand(time(NULL));
-
    printf("Bem vindo ao Liga4!\n");
    puts("O jogo consiste em alinhar 4 peças na horizontal, vertical ou diagonal para vencer.");
+   while(1){
+
    printf("Escolha o tema do jogo:\n1 - Individual(Player contra o computador)\n2 - Dois players\n3 - Simulado(computador contra computador)\n 4 - Sair\n");
    scanf("%d", &tema);
 
@@ -41,10 +42,11 @@ int main() {
     } else if (tema == 3){
         printf("Tema Simulado selecionado.\n");
         // Lógica para o tema simulado
-    } else {
+    } else if (tema == 4){
         printf("Tema inválido. Encerrando o jogo.\n");
+        break;
     }
 
-    
+            }
    return 0;
 }
