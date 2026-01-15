@@ -3,9 +3,6 @@
 #include <time.h>
 
 
-int verificarVitoria(int tabuleiro[6][7], int jogador, int linha, int coluna){
-    
-}
 
 
 typedef struct {
