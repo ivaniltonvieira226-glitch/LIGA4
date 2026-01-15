@@ -1,8 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-
-
+#include <string.h>
 
 
 typedef struct {
@@ -24,7 +23,8 @@ int main() {
    scanf("%d", &tema);
 
     Ficha jogador1, jogador2;
-    
+    jogador1.id = 1;
+    jogador2.id = 2;
     if (tema == 1){
         printf("Tema Individual selecionado.\n");
         // Lógica para o tema individual
@@ -32,9 +32,8 @@ int main() {
         printf("O jogador 1 será você e o jogador 2 será o computador.\n");
         printf("Digite seu nome: ");
         scanf("%s", jogador1.user);
-        jogador1.id = 1;
-        jogador2.user[0] = "LUCAS";
-        jogador2.id = 2;
+        strcpy(jogador2.user, "Computador");
+        
 
         // exibir tabuleiro
           printf("============LIG4++============\n");
