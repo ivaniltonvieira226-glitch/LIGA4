@@ -87,10 +87,10 @@ int main() {
         printf("Digite seu nome: ");
         scanf("%s", jogador1.user);
         jogador1.id = 1;
-        jogador2.user[0] = "Kamputer";
+        strcpy(jogador2.user, "Alexandre");
         jogador2.id = 2;
 
-
+        
 
     } else if (tema == 2){
         printf("Tema Dois players selecionado.\n");
