@@ -208,15 +208,17 @@ int main() {
             int coluna;
             printf("%s, escolha uma coluna (1-7) para jogar: ", jogador1.user);
             scanf("%d", &coluna);
+
             if(!jogar(tabuleiro, coluna, jogador1.id)){
                 printf("Coluna inválida ou cheia. Tente novamente.\n");
                 continue;
             };
+
             jogador1.quantidade_de_fichas--;
 
             if (verificarVitoria(tabuleiro, jogador1.id, jogador2.id) == jogador1.id){
                 exibirTabuleiro(tabuleiro);
-                printf("Parabéns %s! Você venceu!\n", jogador1.user);
+                printf("%s, Você venceu!\n", jogador1.user);
                 break;
             }
 
@@ -227,16 +229,20 @@ int main() {
             }
 
             exibirTabuleiro(tabuleiro);
+
             printf("%s, escolha uma coluna (1-7) para jogar: ", jogador2.user);
             scanf("%d", &coluna);
+
             if(!jogar(tabuleiro, coluna, jogador2.id)){
                 printf("Coluna inválida ou cheia. Tente novamente.\n");
                 continue;
             };
+
             jogador2.quantidade_de_fichas--;
+
              if (verificarVitoria(tabuleiro, jogador1.id, jogador2.id) == jogador2.id){
                 exibirTabuleiro(tabuleiro);
-                printf("Parabéns %s! Você venceu!\n", jogador2.user);
+                printf("%s, Você venceu!\n", jogador2.user);
                 break;
             }
 
@@ -246,11 +252,56 @@ int main() {
                 break;
             }
         }   
-        
     } 
     else if (tema == 3){
         printf("Tema Simulado selecionado.\n");
-    }
+        printf("Inciando Computador1 vs Computador2...\n");
+        strcpy(jogador1.user, "Computador");
+        strcpy(jogador2.user, "Komputer");
+
+        while(1){
+            exibirTabuleiro(tabuleiro);
+            int coluna_Computador = (rand() % 7) + 1;
+
+            if(!jogar(tabuleiro, coluna_Computador, jogador1.id)){
+                printf("Coluna inválida ou cheia. Tente Novamente.\n");
+                continue;
+            }
+            jogador1.quantidade_de_fichas--;
+            if(verificarVitoria(tabuleiro, jogador1.id, jogador2.id) == jogador1.id){
+                exibirTabuleiro(tabuleiro);
+                printf("%s, Você Venceu!\n", jogador1.user);
+                break;
+            }
+            
+            if(verificarEmpate(tabuleiro)){
+                printf("Empate!. O tabuleiro está cheio.\n");
+                break;
+            }
+            
+            exibirTabuleiro(tabuleiro);
+            int coluna_Komputer = (rand() % 7) + 1;
+            
+             if(!jogar(tabuleiro, coluna_Komputer, jogador2.id)){
+                printf("Coluna inválida ou cheia. Tente Novamente.\n");
+                continue;
+            }
+
+            jogador2.quantidade_de_fichas--;
+
+            if(verificarVitoria(tabuleiro, jogador1.id, jogador2.id) == jogador2.id){
+                exibirTabuleiro(tabuleiro);
+                printf("%s, Você Venceu!\n", jogador2.user);
+                break;
+            }
+            
+            if(verificarEmpate(tabuleiro)){
+                printf("Empate!. O tabuleiro está cheio.\n");
+                break;
+            }
+
+        }
+    }  
     else if (tema == 4){
         printf("Encerrando o jogo.\n");
         break;
