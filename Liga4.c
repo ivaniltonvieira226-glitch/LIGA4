@@ -8,6 +8,9 @@ typedef struct {
     char user[100];
 } Ficha;
 
+
+//Função para verificar vitória
+
 int verificarVitoria(int tabuleiro[6][7], Ficha user1, Ficha user2){
     // verificar horizontalmente
     for (int i = 0; i < 6; i++){
@@ -59,6 +62,13 @@ int verificarVitoria(int tabuleiro[6][7], Ficha user1, Ficha user2){
     }
 
 }
+
+//Função para jogar
+
+int jogar(int tabuleiro[6][7], Ficha jogador){
+    
+}
+
 
 
 
