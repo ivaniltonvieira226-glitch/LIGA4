@@ -99,10 +99,10 @@ int jogar(int tabuleiro[6][7], int coluna, int id){
                 return 1;
             }
         }
-        return 0;
-}
+        
+    }
 
-    
+    return 0;
     
     }
 
@@ -261,12 +261,12 @@ int main() {
 
         while(1){
             exibirTabuleiro(tabuleiro);
-            int coluna_Computador = (rand() % 7) + 1;
+            int coluna_Computador, coluna;
 
-            if(!jogar(tabuleiro, coluna_Computador, jogador1.id)){
-                printf("Coluna inválida ou cheia. Tente Novamente.\n");
-                continue;
-            }
+            do{
+            coluna_Computador = (rand() % 7) + 1;
+            } while(!jogar(tabuleiro, coluna_Computador, jogador1.id));
+
             jogador1.quantidade_de_fichas--;
             if(verificarVitoria(tabuleiro, jogador1.id, jogador2.id) == jogador1.id){
                 exibirTabuleiro(tabuleiro);
@@ -275,17 +275,16 @@ int main() {
             }
             
             if(verificarEmpate(tabuleiro)){
+                exibirTabuleiro(tabuleiro);
                 printf("Empate!. O tabuleiro está cheio.\n");
                 break;
             }
             
             exibirTabuleiro(tabuleiro);
-            int coluna_Komputer = (rand() % 7) + 1;
+            do{
+            coluna = (rand() % 7) + 1;
+            } while(!jogar(tabuleiro, coluna, jogador2.id));
             
-             if(!jogar(tabuleiro, coluna_Komputer, jogador2.id)){
-                printf("Coluna inválida ou cheia. Tente Novamente.\n");
-                continue;
-            }
 
             jogador2.quantidade_de_fichas--;
 
@@ -296,6 +295,7 @@ int main() {
             }
             
             if(verificarEmpate(tabuleiro)){
+                exibirTabuleiro(tabuleiro);
                 printf("Empate!. O tabuleiro está cheio.\n");
                 break;
             }
