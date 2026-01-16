@@ -6,19 +6,69 @@
 
 
 
-int jogar(int tabuleiro[6][7], Ficha jogador1, Ficha jogador2, int tema){
-    // Implementação da lógica do jogo
-
-    
-}
-
-
-
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include <string.h>
 
 typedef struct {
     int id;
     char user[100];
 } Ficha;
+
+int verificarVitoria(int tabuleiro[6][7], Ficha user1, Ficha user2){
+    // verificar horizontalmente
+    for (int i = 0; i < 6; i++){
+        for (int j = 0; j < 4; j++){
+            if (tabuleiro[i][j] == user1.id && tabuleiro[i][j+1] == user1.id && tabuleiro[i][j+2] == user1.id && tabuleiro[i][j+3] == user1.id){
+                return user1.id;
+            }
+            if (tabuleiro[i][j] == user2.id && tabuleiro[i][j+1] == user2.id && tabuleiro[i][j+2] == user2.id && tabuleiro[i][j+3] == user2.id){
+                return user2.id;
+            }
+        }
+        
+    }
+
+    // verificar verticalmente
+    for (int i = 0; i < 3; i++){
+        for (int j = 0; j < 7; j++){
+            if (tabuleiro[i][j] == user1.id && tabuleiro[i+1][j] == user1.id && tabuleiro[i+2][j] == user1.id && tabuleiro[i+3][j] == user1.id){
+                return user1.id;
+            }
+            if (tabuleiro[i][j] == user2.id && tabuleiro[i+1][j] == user2.id && tabuleiro[i+2][j] == user2.id && tabuleiro[i+3][j] == user2.id){
+
+                return user2.id;
+            }
+        }
+    // verificar diagonal da direita
+
+    for (int i = 0; i < 3; i++){
+        for (int j = 0; j < 4; j++){
+            if (tabuleiro[i][j] == user1.id && tabuleiro[i+1][j+1] == user1.id && tabuleiro[i+2][j+2] == user1.id && tabuleiro[i+3][j+3] == user1.id){
+                return user1.id;
+            }
+            if (tabuleiro[i][j] == user2.id && tabuleiro[i+1][j+1] == user2.id && tabuleiro[i+2][j+2] == user2.id && tabuleiro[i+3][j+3] == user2.id){
+                return user2.id;
+            }
+        }
+    }
+}
+    // verificar diagonal da esquerda
+    for (int i = 6; i >= 3; i--){
+        for (int j = 0; j < 4; j++){
+            if (tabuleiro[i][j] == user1.id && tabuleiro[i-1][j+1] == user1.id && tabuleiro[i-2][j+2] == user1.id && tabuleiro[i-3][j+3] == user1.id){
+                return user1.id;
+            }
+            if (tabuleiro[i][j] == user2.id && tabuleiro[i-1][j+1] == user2.id && tabuleiro[i-2][j+2] == user2.id && tabuleiro[i-3][j+3] == user2.id){
+                return user2.id;
+            }
+        }
+    }
+
+}
+
+
 
 
 int main() {
@@ -60,7 +110,6 @@ int main() {
         } 
         
         printf("-----------------------------\n");
-
 
 
     } else if (tema == 2){
