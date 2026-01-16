@@ -102,7 +102,7 @@ int jogar(int tabuleiro[6][7], int coluna, int id){
         return 0;
 }
 
-// função jogar do computador
+    
     
     }
 
