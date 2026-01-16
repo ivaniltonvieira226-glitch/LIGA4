@@ -9,6 +9,60 @@ typedef struct {
     char user[100];
 } Ficha;
 
+int verificarVitoria(int tabuleiro[6][7], Ficha user1, Ficha user2){
+    // verificar horizontalmente
+    for (int i = 0; i < 6; i++){
+        for (int j = 0; j < 4; j++){
+            if (tabuleiro[i][j] == user1.id && tabuleiro[i][j+1] == user1.id && tabuleiro[i][j+2] == user1.id && tabuleiro[i][j+3] == user1.id){
+                return user1.id;
+            }
+            if (tabuleiro[i][j] == user2.id && tabuleiro[i][j+1] == user2.id && tabuleiro[i][j+2] == user2.id && tabuleiro[i][j+3] == user2.id){
+                return user2.id;
+            }
+        }
+        
+    }
+
+    // verificar verticalmente
+    for (int i = 0; i < 3; i++){
+        for (int j = 0; j < 7; j++){
+            if (tabuleiro[i][j] == user1.id && tabuleiro[i+1][j] == user1.id && tabuleiro[i+2][j] == user1.id && tabuleiro[i+3][j] == user1.id){
+                return user1.id;
+            }
+            if (tabuleiro[i][j] == user2.id && tabuleiro[i+1][j] == user2.id && tabuleiro[i+2][j] == user2.id && tabuleiro[i+3][j] == user2.id){
+
+                return user2.id;
+            }
+        }
+    // verificar diagonal da direita
+
+    for (int i = 0; i < 3; i++){
+        for (int j = 0; j < 4; j++){
+            if (tabuleiro[i][j] == user1.id && tabuleiro[i+1][j+1] == user1.id && tabuleiro[i+2][j+2] == user1.id && tabuleiro[i+3][j+3] == user1.id){
+                return user1.id;
+            }
+            if (tabuleiro[i][j] == user2.id && tabuleiro[i+1][j+1] == user2.id && tabuleiro[i+2][j+2] == user2.id && tabuleiro[i+3][j+3] == user2.id){
+                return user2.id;
+            }
+        }
+    }
+}
+    // verificar diagonal da esquerda
+    for (int i = 6; i >= 3; i--){
+        for (int j = 0; j < 4; j++){
+            if (tabuleiro[i][j] == user1.id && tabuleiro[i-1][j+1] == user1.id && tabuleiro[i-2][j+2] == user1.id && tabuleiro[i-3][j+3] == user1.id){
+                return user1.id;
+            }
+            if (tabuleiro[i][j] == user2.id && tabuleiro[i-1][j+1] == user2.id && tabuleiro[i-2][j+2] == user2.id && tabuleiro[i-3][j+3] == user2.id){
+                return user2.id;
+            }
+        }
+    }
+
+}
+
+
+
 
 int main() {
    int tabuleiro[6][7] = {0};
@@ -25,6 +79,8 @@ int main() {
     Ficha jogador1, jogador2;
     jogador1.id = 1;
     jogador2.id = 2;
+    jogador1.id = 1;
+    jogador2.id = 2;
     if (tema == 1){
         printf("Tema Individual selecionado.\n");
         // Lógica para o tema individual
@@ -32,23 +88,9 @@ int main() {
         printf("O jogador 1 será você e o jogador 2 será o computador.\n");
         printf("Digite seu nome: ");
         scanf("%s", jogador1.user);
-        strcpy(jogador2.user, "Computador");
-        
-
-        // exibir tabuleiro
-          printf("============LIG4++============\n");
-        printf("\n");
-        printf("  1   2   3   4   5   6   7  \n");
-        printf("\n");
-        for(int i = 0; i < 6; i++){
-            printf("|");
-            for(int j = 0; j < 7;j++){
-                printf(" %d |",tabuleiro[i][j]);
-            }
-            printf("\n");
-        } 
-        
-        printf("-----------------------------\n");
+        jogador1.id = 1;
+        jogador2.user[0] = "Kamputer";
+        jogador2.id = 2;
 
 
 
