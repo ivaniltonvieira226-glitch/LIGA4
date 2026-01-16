@@ -79,8 +79,6 @@ int main() {
     Ficha jogador1, jogador2;
     jogador1.id = 1;
     jogador2.id = 2;
-    jogador1.id = 1;
-    jogador2.id = 2;
     if (tema == 1){
         printf("Tema Individual selecionado.\n");
         // Lógica para o tema individual
