@@ -167,7 +167,7 @@ int main() {
             //Logica para verificar vitória do player 1
             if (verificarVitoria(tabuleiro, jogador1.id, jogador2.id) == jogador1.id){
                 exibirTabuleiro(tabuleiro);
-                printf("Parabéns %s! Você venceu!\n", jogador1.user);
+                printf("Parabéns %s! Você venceu!\n\n", jogador1.user);
                 break;
             }
             //Logica para verificar empate
@@ -185,7 +185,7 @@ int main() {
             jogador2.quantidade_de_fichas--;
             if (verificarVitoria(tabuleiro, jogador1.id, jogador2.id) == jogador2.id){
                 exibirTabuleiro(tabuleiro);
-                printf("O %s venceu! Tente novamente.\n", jogador2.user);
+                printf("O %s venceu! Tente novamente.\n\n", jogador2.user);
                 break;
             }
         }
@@ -218,7 +218,7 @@ int main() {
 
             if (verificarVitoria(tabuleiro, jogador1.id, jogador2.id) == jogador1.id){
                 exibirTabuleiro(tabuleiro);
-                printf("%s, Você venceu!\n", jogador1.user);
+                printf("%s, Você venceu!\n\n", jogador1.user);
                 break;
             }
 
@@ -270,7 +270,7 @@ int main() {
             jogador1.quantidade_de_fichas--;
             if(verificarVitoria(tabuleiro, jogador1.id, jogador2.id) == jogador1.id){
                 exibirTabuleiro(tabuleiro);
-                printf("%s, Você Venceu!\n", jogador1.user);
+                printf("%s, Você Venceu!\n\n", jogador1.user);
                 break;
             }
             
@@ -291,7 +291,7 @@ int main() {
 
             if(verificarVitoria(tabuleiro, jogador1.id, jogador2.id) == jogador2.id){
                 exibirTabuleiro(tabuleiro);
-                printf("%s, Você Venceu!\n", jogador2.user);
+                printf("%s, Você Venceu!\n\n", jogador2.user);
                 break;
             }
             
