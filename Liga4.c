@@ -3,7 +3,6 @@
 #include <time.h>
 #include <string.h>
 
-
 typedef struct {
     int id;
     char user[100];
@@ -86,11 +85,24 @@ int main() {
         printf("O jogador 1 será você e o jogador 2 será o computador.\n");
         printf("Digite seu nome: ");
         scanf("%s", jogador1.user);
-        jogador1.id = 1;
-        strcpy(jogador2.user, "Alexandre");
-        jogador2.id = 2;
-
+        strcpy(jogador2.user, "Computador");
         
+
+        // exibir tabuleiro
+          printf("============LIG4++============\n");
+        printf("\n");
+        printf("  1   2   3   4   5   6   7  \n");
+        printf("\n");
+        for(int i = 0; i < 6; i++){
+            printf("|");
+            for(int j = 0; j < 7;j++){
+                printf(" %d |",tabuleiro[i][j]);
+            }
+            printf("\n");
+        } 
+        
+        printf("-----------------------------\n");
+
 
     } else if (tema == 2){
         printf("Tema Dois players selecionado.\n");
