@@ -11,17 +11,13 @@ typedef struct {
 
 //Função para verificar vitória
 
-int verificarVitoria(int tabuleiro[6][7], int id1, int id2){
+int verificarVitoria(int tabuleiro[6][7], int id){
     // verificar horizontalmente
     for (int i = 0; i < 6; i++){
         for (int j = 0; j < 4; j++){
-            if (tabuleiro[i][j] == id1 && tabuleiro[i][j+1] == id1 
-                && tabuleiro[i][j+2] == id1 && tabuleiro[i][j+3] == id1){
-                return id1;
-            }
-            if (tabuleiro[i][j] == id2 && tabuleiro[i][j+1] == id2 
-                && tabuleiro[i][j+2] == id2 && tabuleiro[i][j+3] == id2){
-                return id2;
+            if (tabuleiro[i][j] == id && tabuleiro[i][j+1] == id
+                && tabuleiro[i][j+2] == id && tabuleiro[i][j+3] == id){
+                return id;
             }
         }
         
@@ -30,14 +26,9 @@ int verificarVitoria(int tabuleiro[6][7], int id1, int id2){
     // verificar verticalmente
     for (int i = 0; i < 3; i++){
         for (int j = 0; j < 7; j++){
-            if (tabuleiro[i][j] == id1 && tabuleiro[i+1][j] == id1 
-                && tabuleiro[i+2][j] == id1 && tabuleiro[i+3][j] == id1){
-                return id1;
-            }
-            if (tabuleiro[i][j] == id2 && tabuleiro[i+1][j] == id2 
-                && tabuleiro[i+2][j] == id2 && tabuleiro[i+3][j] == id2){
-
-                return id2;
+            if (tabuleiro[i][j] == id && tabuleiro[i+1][j] == id 
+                && tabuleiro[i+2][j] == id && tabuleiro[i+3][j] == id){
+                return id;
             }
         }
     }
@@ -45,13 +36,9 @@ int verificarVitoria(int tabuleiro[6][7], int id1, int id2){
     // verificar diagonal da direita
     for (int i = 0; i < 3; i++){
         for (int j = 0; j < 4; j++){
-            if (tabuleiro[i][j] == id1 && tabuleiro[i+1][j+1] == id1 && 
-                tabuleiro[i+2][j+2] == id1 && tabuleiro[i+3][j+3] == id1){
-                return id1;
-            }
-            if (tabuleiro[i][j] == id2 && tabuleiro[i+1][j+1] == id2 && tabuleiro[i+2][j+2] == id2 
-                && tabuleiro[i+3][j+3] == id2){
-                return id2;
+            if (tabuleiro[i][j] == id && tabuleiro[i+1][j+1] == id && 
+                tabuleiro[i+2][j+2] == id && tabuleiro[i+3][j+3] == id){
+                return id;
             }
         }
     }
@@ -59,11 +46,8 @@ int verificarVitoria(int tabuleiro[6][7], int id1, int id2){
     // verificar diagonal da esquerda
     for (int i = 3; i < 6; i++){
         for (int j = 0; j < 4; j++){
-            if (tabuleiro[i][j] == id1 && tabuleiro[i-1][j+1] == id1 && tabuleiro[i-2][j+2] == id1 && tabuleiro[i-3][j+3] == id1){
-                return id1;
-            }
-            if (tabuleiro[i][j] == id2 && tabuleiro[i-1][j+1] == id2 && tabuleiro[i-2][j+2] == id2 && tabuleiro[i-3][j+3] == id2){
-                return id2;
+            if (tabuleiro[i][j] == id && tabuleiro[i-1][j+1] == id && tabuleiro[i-2][j+2] == id && tabuleiro[i-3][j+3] == id){
+                return id;
             }
         }
     }
@@ -89,7 +73,6 @@ int verificarEmpate(int tabuleiro[6][7]){
 //Função para jogar
 
 int jogar(int tabuleiro[6][7], int coluna, int id){
-    while(1){
         if (coluna < 1 || coluna > 7){
             return 0;
         }
@@ -99,16 +82,14 @@ int jogar(int tabuleiro[6][7], int coluna, int id){
                 return 1;
             }
         }
-        
-    }
+        return 0;
 
-    return 0;
-    
-    }
+    }    
+
 
 
     //função exibir tabuleiro
-    void exibirTabuleiro(int tabuleiro[6][7]){
+    void exibirTabuleiro(int tabuleiro[6][7], int id1, int id2){
         printf("============LIG4++============\n");
         printf("\n");
         printf("  1   2   3   4   5   6   7  \n");
@@ -116,7 +97,15 @@ int jogar(int tabuleiro[6][7], int coluna, int id){
         for(int i = 0; i < 6; i++){
             printf("|");
             for(int j = 0; j < 7;j++){
-                printf(" %d |",tabuleiro[i][j]);
+                if(id1 == tabuleiro[i][j]){
+                    printf(" X |");
+                }
+                else if(id2 == tabuleiro[i][j]){
+                    printf(" O |");
+                }
+                else{
+                printf(" - |");
+                }
             }
             printf("\n");
         } 
@@ -144,6 +133,7 @@ int main() {
 
      // Logica para o tema individual
     if (tema == 1){
+        
         printf("Tema Individual selecionado.\n");
         printf("Iniciando o jogo Player vs Computador...\n");
         printf("O jogador 1 será você e o jogador 2 será o computador.\n");
@@ -152,7 +142,8 @@ int main() {
         strcpy(jogador2.user, "Computador");
 
         while(1){
-            exibirTabuleiro(tabuleiro);
+
+            exibirTabuleiro(tabuleiro, jogador1.id, jogador2.id);
             int coluna;
             printf("%s, escolha uma coluna (1-7) para jogar: ", jogador1.user);
             scanf("%d", &coluna);
@@ -163,26 +154,27 @@ int main() {
             jogador1.quantidade_de_fichas--;
 
             //Logica para verificar vitória do player 1
-            if (verificarVitoria(tabuleiro, jogador1.id, jogador2.id) == jogador1.id){
-                exibirTabuleiro(tabuleiro);
+            if (verificarVitoria(tabuleiro, jogador1.id) == jogador1.id){
+                exibirTabuleiro(tabuleiro, jogador1.id, jogador2.id);
                 printf("Parabéns %s! Você venceu!\n\n", jogador1.user);
                 break;
             }
             //Logica para verificar empate
             if (verificarEmpate(tabuleiro)){
-                exibirTabuleiro(tabuleiro);
+                exibirTabuleiro(tabuleiro, jogador1.id, jogador2.id);
                 printf("Empate! O tabuleiro está cheio.\n");
                 break;
             }
 
             // Logica da jogada do computador
-            int coluna_computador = (rand() % 7) + 1;
-            if(!jogar(tabuleiro, coluna_computador, jogador2.id)){
-                continue;
-            }
+            int colunaComputador;
+            do{
+            colunaComputador = (rand() % 7) + 1;
+            } while(!jogar(tabuleiro, colunaComputador, jogador2.id));
+
             jogador2.quantidade_de_fichas--;
-            if (verificarVitoria(tabuleiro, jogador1.id, jogador2.id) == jogador2.id){
-                exibirTabuleiro(tabuleiro);
+            if (verificarVitoria(tabuleiro, jogador2.id) == jogador2.id){
+                exibirTabuleiro(tabuleiro,jogador1.id, jogador2.id);
                 printf("O %s venceu! Tente novamente.\n\n", jogador2.user);
                 break;
             }
@@ -200,7 +192,7 @@ int main() {
         scanf("%s", jogador2.user);
 
         while(1){
-            exibirTabuleiro(tabuleiro);
+            exibirTabuleiro(tabuleiro, jogador1.id, jogador2.id);
             int coluna;
             printf("%s, escolha uma coluna (1-7) para jogar: ", jogador1.user);
             scanf("%d", &coluna);
@@ -212,19 +204,19 @@ int main() {
 
             jogador1.quantidade_de_fichas--;
 
-            if (verificarVitoria(tabuleiro, jogador1.id, jogador2.id) == jogador1.id){
-                exibirTabuleiro(tabuleiro);
+            if (verificarVitoria(tabuleiro, jogador1.id) == jogador1.id){
+                exibirTabuleiro(tabuleiro, jogador1.id, jogador2.id);
                 printf("%s, Você venceu!\n\n", jogador1.user);
                 break;
             }
 
             if(verificarEmpate(tabuleiro)){
-                exibirTabuleiro(tabuleiro);
+                exibirTabuleiro(tabuleiro, jogador1.id, jogador2.id);
                 printf("Empate! O tabuleiro está cheio.\n");
                 break;
             }
 
-            exibirTabuleiro(tabuleiro);
+            exibirTabuleiro(tabuleiro, jogador1.id, jogador2.id);
 
             printf("%s, escolha uma coluna (1-7) para jogar: ", jogador2.user);
             scanf("%d", &coluna);
@@ -236,14 +228,14 @@ int main() {
 
             jogador2.quantidade_de_fichas--;
 
-             if (verificarVitoria(tabuleiro, jogador1.id, jogador2.id) == jogador2.id){
-                exibirTabuleiro(tabuleiro);
+             if (verificarVitoria(tabuleiro, jogador2.id) == jogador2.id){
+                exibirTabuleiro(tabuleiro, jogador1.id, jogador2.id);
                 printf("%s, Você venceu!\n", jogador2.user);
                 break;
             }
 
             if (verificarEmpate(tabuleiro)){
-                exibirTabuleiro(tabuleiro);
+                exibirTabuleiro(tabuleiro, jogador1.id, jogador2.id);
                 printf("Empate! O tabuleiro está cheio.\n");
                 break;
             }
@@ -256,7 +248,7 @@ int main() {
         strcpy(jogador2.user, "Komputer");
 
         while(1){
-            exibirTabuleiro(tabuleiro);
+            exibirTabuleiro(tabuleiro, jogador1.id, jogador2.id);
             int coluna_Computador, coluna;
 
             do{
@@ -264,19 +256,19 @@ int main() {
             } while(!jogar(tabuleiro, coluna_Computador, jogador1.id));
 
             jogador1.quantidade_de_fichas--;
-            if(verificarVitoria(tabuleiro, jogador1.id, jogador2.id) == jogador1.id){
-                exibirTabuleiro(tabuleiro);
+            if(verificarVitoria(tabuleiro, jogador1.id) == jogador1.id){
+                exibirTabuleiro(tabuleiro, jogador1.id, jogador2.id);
                 printf("%s, Você Venceu!\n\n", jogador1.user);
                 break;
             }
             
             if(verificarEmpate(tabuleiro)){
-                exibirTabuleiro(tabuleiro);
+                exibirTabuleiro(tabuleiro, jogador1.id, jogador2.id);
                 printf("Empate!. O tabuleiro está cheio.\n");
                 break;
             }
             
-            exibirTabuleiro(tabuleiro);
+            exibirTabuleiro(tabuleiro, jogador1.id, jogador2.id);
             do{
             coluna = (rand() % 7) + 1;
             } while(!jogar(tabuleiro, coluna, jogador2.id));
@@ -284,14 +276,14 @@ int main() {
 
             jogador2.quantidade_de_fichas--;
 
-            if(verificarVitoria(tabuleiro, jogador1.id, jogador2.id) == jogador2.id){
-                exibirTabuleiro(tabuleiro);
+            if(verificarVitoria(tabuleiro, jogador2.id) == jogador2.id){
+                exibirTabuleiro(tabuleiro, jogador1.id, jogador2.id);
                 printf("%s, Você Venceu!\n\n", jogador2.user);
                 break;
             }
             
             if(verificarEmpate(tabuleiro)){
-                exibirTabuleiro(tabuleiro);
+                exibirTabuleiro(tabuleiro, jogador1.id, jogador2.id);
                 printf("Empate!. O tabuleiro está cheio.\n");
                 break;
             }
