@@ -138,8 +138,8 @@ int main() {
     Ficha jogador1, jogador2;
     jogador1.id = 1;
     jogador2.id = 2;
-    jogador1.quantidade_de_fichas = 21;
-    jogador2.quantidade_de_fichas = 21;
+    jogador1.quantidade_de_fichas = 0;
+    jogador2.quantidade_de_fichas = 0;
 
      // Logica para o tema individual
     if (tema == 1){
@@ -170,12 +170,13 @@ int main() {
                 }
             } while(1);
             
-            jogador1.quantidade_de_fichas--;
+            jogador1.quantidade_de_fichas++;
 
             //Logica para verificar vitória do player 1
             if (verificarVitoria(tabuleiro, jogador1.id) == jogador1.id){
                 exibirTabuleiro(tabuleiro, jogador1.id, jogador2.id);
                 printf("Parabéns %s! Você venceu!\n\n", jogador1.user);
+                printf("Fichas utilizadas: %d\n\n", jogador1.quantidade_de_fichas);
                 break;
             }
             //Logica para verificar empate
@@ -191,10 +192,12 @@ int main() {
             colunaComputador = (rand() % 7) + 1;
             } while(!jogar(tabuleiro, colunaComputador, jogador2.id));
 
-            jogador2.quantidade_de_fichas--;
+            jogador2.quantidade_de_fichas++;
+
             if (verificarVitoria(tabuleiro, jogador2.id) == jogador2.id){
                 exibirTabuleiro(tabuleiro,jogador1.id, jogador2.id);
-                printf("O %s venceu! Tente novamente.\n\n", jogador2.user);
+                printf("O %s venceu! Tente novamente.\n", jogador2.user);
+                printf("Fichas utilizadas: %d\n\n", jogador2.quantidade_de_fichas);
                 break;
             }
         }
@@ -227,11 +230,12 @@ int main() {
             else { break;}
             } while(1);
 
-            jogador1.quantidade_de_fichas--;
+            jogador1.quantidade_de_fichas++;
 
             if (verificarVitoria(tabuleiro, jogador1.id) == jogador1.id){
                 exibirTabuleiro(tabuleiro, jogador1.id, jogador2.id);
                 printf("%s, Você venceu!\n\n", jogador1.user);
+                printf("Fichas utilizadas: %d\n\n", jogador1.quantidade_de_fichas);
                 break;
             }
 
@@ -258,11 +262,12 @@ int main() {
             } while(1);
             
 
-            jogador2.quantidade_de_fichas--;
+            jogador2.quantidade_de_fichas++;
 
              if (verificarVitoria(tabuleiro, jogador2.id) == jogador2.id){
                 exibirTabuleiro(tabuleiro, jogador1.id, jogador2.id);
                 printf("%s, Você venceu!\n", jogador2.user);
+                printf("Fichas utilizadas: %d\n\n", jogador2.quantidade_de_fichas);
                 break;
             }
 
@@ -287,10 +292,11 @@ int main() {
             coluna_Computador = (rand() % 7) + 1;
             } while(!jogar(tabuleiro, coluna_Computador, jogador1.id));
 
-            jogador1.quantidade_de_fichas--;
+            jogador1.quantidade_de_fichas++;
             if(verificarVitoria(tabuleiro, jogador1.id) == jogador1.id){
                 exibirTabuleiro(tabuleiro, jogador1.id, jogador2.id);
                 printf("%s, Você Venceu!\n\n", jogador1.user);
+                printf("Fichas utilizadas: %d\n\n", jogador1.quantidade_de_fichas);
                 break;
             }
             
@@ -306,11 +312,12 @@ int main() {
             } while(!jogar(tabuleiro, coluna, jogador2.id));
             
 
-            jogador2.quantidade_de_fichas--;
+            jogador2.quantidade_de_fichas++;
 
             if(verificarVitoria(tabuleiro, jogador2.id) == jogador2.id){
                 exibirTabuleiro(tabuleiro, jogador1.id, jogador2.id);
-                printf("%s, Você Venceu!\n\n", jogador2.user);
+                printf("%s, Você Venceu!\n", jogador2.user);
+                printf("Fichas utilizadas: %d\n\n", jogador2.quantidade_de_fichas);
                 break;
             }
             
