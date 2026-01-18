@@ -68,7 +68,16 @@ int verificarEmpate(int tabuleiro[6][7]){
 
     return 1;
 }
+//Sempre valor inteiro
 
+int Inteiro(int valor){
+    if (valor != 1){
+        while (getchar() != '\n');
+        return 1;
+    }
+
+    return 0;
+}
 
 //Função para jogar
 
@@ -123,6 +132,7 @@ int main() {
    while(1){
    printf("Escolha o tema do jogo:\n1 - Individual(Player contra o computador)\n2 - Dois players\n3 - Simulado(computador contra computador)\n4 - Sair\n");
    scanf("%d", &tema);
+
    int tabuleiro[6][7] = {0};
 
     Ficha jogador1, jogador2;
@@ -144,13 +154,22 @@ int main() {
         while(1){
 
             exibirTabuleiro(tabuleiro, jogador1.id, jogador2.id);
-            int coluna;
+            int coluna, inteiro;
             printf("%s, escolha uma coluna (1-7) para jogar: ", jogador1.user);
-            scanf("%d", &coluna);
-            if(!jogar(tabuleiro, coluna, jogador1.id)){
+            
+            do{
+                inteiro = scanf("%d", &coluna);
+                if(Inteiro(inteiro)){
+                    printf("Digite um valor inteiro.\n");
+                }
+                else if(!jogar(tabuleiro, coluna, jogador1.id)){
                 printf("Coluna inválida ou cheia. Tente novamente.\n");
-                continue;
-            };
+                }
+                else{
+                    break;
+                }
+            } while(1);
+            
             jogador1.quantidade_de_fichas--;
 
             //Logica para verificar vitória do player 1
@@ -192,15 +211,21 @@ int main() {
         scanf("%s", jogador2.user);
 
         while(1){
-            exibirTabuleiro(tabuleiro, jogador1.id, jogador2.id);
-            int coluna;
-            printf("%s, escolha uma coluna (1-7) para jogar: ", jogador1.user);
-            scanf("%d", &coluna);
 
-            if(!jogar(tabuleiro, coluna, jogador1.id)){
-                printf("Coluna inválida ou cheia. Tente novamente.\n");
-                continue;
-            };
+            exibirTabuleiro(tabuleiro, jogador1.id, jogador2.id);
+            int coluna, inteiro;
+            printf("%s, escolha uma coluna (1-7) para jogar: ", jogador1.user);
+
+            do{
+            inteiro = scanf("%d", &coluna);
+            if(Inteiro(inteiro)){
+                printf("Digite um valor Inteiro.\n");
+            }
+            else if(!jogar(tabuleiro, coluna, jogador1.id)){
+                printf("\nColuna inválida ou cheia. Tente novamente.\n\n");
+            }
+            else { break;}
+            } while(1);
 
             jogador1.quantidade_de_fichas--;
 
@@ -219,12 +244,19 @@ int main() {
             exibirTabuleiro(tabuleiro, jogador1.id, jogador2.id);
 
             printf("%s, escolha uma coluna (1-7) para jogar: ", jogador2.user);
-            scanf("%d", &coluna);
-
-            if(!jogar(tabuleiro, coluna, jogador2.id)){
-                printf("Coluna inválida ou cheia. Tente novamente.\n");
-                continue;
-            };
+            do{
+            inteiro = scanf("%d", &coluna);
+                if (Inteiro(inteiro)){
+                    printf("Digite um valor inteiro.\n");
+                }
+                else if(!jogar(tabuleiro, coluna, jogador2.id)){
+                printf("\nColuna inválida ou cheia. Tente novamente.\n");
+                }
+                else{
+                    break;
+                }
+            } while(1);
+            
 
             jogador2.quantidade_de_fichas--;
 
