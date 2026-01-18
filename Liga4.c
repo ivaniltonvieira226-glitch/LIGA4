@@ -125,8 +125,6 @@ int jogar(int tabuleiro[6][7], int coluna, int id){
     }
 
 
-
-
 int main() {
    int tema;
 
@@ -189,11 +187,9 @@ int main() {
                 break;
             }
         }
-          
 
 
         // Lógica para o tema dois players
-
     } else if (tema == 2){
         printf("Tema Dois players selecionado.\n");
 
