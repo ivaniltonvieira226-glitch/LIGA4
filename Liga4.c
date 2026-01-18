@@ -222,7 +222,7 @@ int main() {
                 printf("Digite um valor Inteiro.\n");
             }
             else if(!jogar(tabuleiro, coluna, jogador1.id)){
-                printf("\nColuna inválida ou cheia. Tente novamente.\n\n");
+                printf("\nColuna inválida ou cheia. Tente novamente.\n");
             }
             else { break;}
             } while(1);
