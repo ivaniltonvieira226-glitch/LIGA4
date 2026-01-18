@@ -73,7 +73,6 @@ int verificarEmpate(int tabuleiro[6][7]){
 //Função para jogar
 
 int jogar(int tabuleiro[6][7], int coluna, int id){
-    while(1){
         if (coluna < 1 || coluna > 7){
             return 0;
         }
@@ -83,12 +82,10 @@ int jogar(int tabuleiro[6][7], int coluna, int id){
                 return 1;
             }
         }
-        
-    }
+        return 0;
 
-    return 0;
-    
-    }
+    }    
+
 
 
     //função exibir tabuleiro
@@ -162,10 +159,11 @@ int main() {
             }
 
             // Logica da jogada do computador
-            int coluna_computador = (rand() % 7) + 1;
-            if(!jogar(tabuleiro, coluna_computador, jogador2.id)){
-                continue;
-            }
+            int colunaComputador;
+            do{
+            colunaComputador = (rand() % 7) + 1;
+            } while(!jogar(tabuleiro, colunaComputador, jogador2.id));
+
             jogador2.quantidade_de_fichas--;
             if (verificarVitoria(tabuleiro, jogador2.id) == jogador2.id){
                 exibirTabuleiro(tabuleiro);
