@@ -113,7 +113,7 @@ int jogar(int tabuleiro[6][7], int coluna, int id){
                     printf(" O |");
                 }
                 else{
-                printf(" - |");
+                printf("   |");
                 }
             }
             printf("\n");
