@@ -93,30 +93,31 @@ int jogar(int tabuleiro[6][7], int coluna, Ficha *jogador){
         //Ficha portal    
         else if(jogador->tipo_de_ficha == FICHA_PORTAL){
             
-            //nao deixar a ficha sumir e se tornar erro
             
-
-            for (int i = 5; i > 0; i--){
-                
-            if(tabuleiro[i][coluna - 1] == 0){
-
-                if(tabuleiro[i - 1][coluna -1] != 0 && tabuleiro[i - 1][coluna -1] != jogador->id){
-                    tabuleiro[i - 1][coluna -1] = jogador->id;
+            // ficha portal substitui a primeira ficha do oponente que encontrar na coluna
+            for (int i = 0; i < 6; i++){
+                if (tabuleiro[i][coluna-1] != 0){
+                    if(tabuleiro[i][coluna-1] != jogador->id){
+                        tabuleiro[i][coluna-1] = jogador->id;
+                        return 1;
+                    }
                     
-                    return 1;
-                }
-                else if(tabuleiro[i - 1][coluna - 1] == jogador->id){
-                    tabuleiro[i][coluna -1] = jogador->id;
-                
-                    return 1;
+                    // ficha portal não pode substituir a própria ficha
+                    else if(i != 0){
+                        if (tabuleiro[i - 1][coluna - 1] == 0){
+                            tabuleiro[i - 1][coluna - 1] = jogador->id;
+                            return 1;
+                        }
+                    }
                 }
 
-                return 1;
-            }
-
+                // se não encontrar nenhuma ficha abaixo, ele some e gasta uma jogada
+                else if(i == 5){
+                    return 1;
+                }  
         }
             return 0;
-        }
+    }
 
         //Ficha explosiva
 
