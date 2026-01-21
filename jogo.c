@@ -101,7 +101,7 @@ int jogar(int tabuleiro[6][7], int coluna, Ficha *jogador){
                         tabuleiro[i][coluna-1] = jogador->id;
                         return 1;
                     }
-                    
+
                     // ficha portal não pode substituir a própria ficha
                     else if(i != 0){
                         if (tabuleiro[i - 1][coluna - 1] == 0){
@@ -120,7 +120,9 @@ int jogar(int tabuleiro[6][7], int coluna, Ficha *jogador){
     }
 
         //Ficha explosiva
-
+        else if(jogador->tipo_de_ficha == FICHA_EXPLOSIVA){
+            
+        }
 
     }    
 
