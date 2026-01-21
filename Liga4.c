@@ -97,9 +97,15 @@ int main() {
         scanf("%s", jogador2.user);
 
         while(1){
-
+            
             exibirTabuleiro(tabuleiro, jogador1.id, jogador2.id);
-            int coluna, inteiro;
+            int coluna, inteiro, fichaip;
+
+            //Logica para usar outras fichas
+            printf("Escolha qual ficha vai usar:\n");
+            printf("1.Comum 2.Portal 3.Explosiva\n");
+            scanf("%d", &jogador1.tipo_de_ficha);
+
             printf("%s, escolha uma coluna (1-7) para jogar: ", jogador1.user);
 
             do{
@@ -107,9 +113,10 @@ int main() {
             if(Inteiro(inteiro)){
                 printf("Digite um valor Inteiro.\n");
             }
-            else if(!jogar(tabuleiro, coluna, jogador1.id)){
+            else if(!jogar(tabuleiro, coluna, &jogador1)){
                 printf("\nColuna inválida ou cheia. Tente novamente.\n");
             }
+
             else { break;}
             } while(1);
 

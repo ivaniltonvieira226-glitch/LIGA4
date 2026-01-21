@@ -75,17 +75,51 @@ int Inteiro(int valor){
 
 //Função para jogar
 
-int jogar(int tabuleiro[6][7], int coluna, int id){
+int jogar(int tabuleiro[6][7], int coluna, Ficha *jogador){
         if (coluna < 1 || coluna > 7){
             return 0;
         }
+
+        //Ficha comum
+        if(jogador->tipo_de_ficha == FICHA_COMUM){
         for (int i = 5; i >= 0; i--){
             if (tabuleiro[i][coluna-1] == 0){
-                tabuleiro[i][coluna-1] = id;
+                tabuleiro[i][coluna-1] = jogador->id;
                 return 1;
             }
         }
         return 0;
+    }
+        //Ficha portal    
+        else if(jogador->tipo_de_ficha == FICHA_PORTAL){
+            
+            //nao deixar a ficha sumir e se tornar erro
+            
+
+            for (int i = 5; i > 0; i--){
+                
+            if(tabuleiro[i][coluna - 1] == 0){
+
+                if(tabuleiro[i - 1][coluna -1] != 0 && tabuleiro[i - 1][coluna -1] != jogador->id){
+                    tabuleiro[i - 1][coluna -1] = jogador->id;
+                    
+                    return 1;
+                }
+                else if(tabuleiro[i - 1][coluna - 1] == jogador->id){
+                    tabuleiro[i][coluna -1] = jogador->id;
+                
+                    return 1;
+                }
+
+                return 1;
+            }
+
+        }
+            return 0;
+        }
+
+        //Ficha explosiva
+
 
     }    
 
@@ -115,3 +149,5 @@ int jogar(int tabuleiro[6][7], int coluna, int id){
         
         printf("-----------------------------\n");
     }
+
+   
