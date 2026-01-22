@@ -17,6 +17,7 @@ int main() {
    scanf("%d", &tema);
 
    int tabuleiro[6][7] = {0};
+   int tabuleiro_explosivo[6][7] = {0};
 
     Ficha jogador1, jogador2;
     jogador1.id = 1;
@@ -45,7 +46,7 @@ int main() {
                 if(Inteiro(inteiro)){
                     printf("Digite um valor inteiro.\n");
                 }
-                else if(!jogar(tabuleiro, coluna, &jogador1)){
+                else if(!jogar(tabuleiro, coluna, &jogador1, tabuleiro_explosivo)){
                 printf("Coluna inválida ou cheia. Tente novamente.\n");
                 }
                 else{
@@ -73,7 +74,7 @@ int main() {
             int colunaComputador;
             do{
             colunaComputador = (rand() % 7) + 1;
-            } while(!jogar(tabuleiro, colunaComputador, &jogador2));
+            } while(!jogar(tabuleiro, colunaComputador, &jogador2, tabuleiro));
 
             jogador2.quantidade_de_fichas++;
 
@@ -113,7 +114,7 @@ int main() {
             if(Inteiro(inteiro)){
                 printf("Digite um valor Inteiro.\n");
             }
-            else if(!jogar(tabuleiro, coluna, &jogador1)){
+            else if(!jogar(tabuleiro, coluna, &jogador1, tabuleiro_explosivo)){
                 printf("\nColuna inválida ou cheia. Tente novamente.\n");
             }
 
@@ -147,7 +148,7 @@ int main() {
                 if (Inteiro(inteiro)){
                     printf("Digite um valor inteiro.\n");
                 }
-                else if(!jogar(tabuleiro, coluna, &jogador2)){
+                else if(!jogar(tabuleiro, coluna, &jogador2, tabuleiro_explosivo)){
                 printf("\nColuna inválida ou cheia. Tente novamente.\n");
                 }
                 else{
@@ -184,7 +185,7 @@ int main() {
 
             do{
             coluna_Computador = (rand() % 7) + 1;
-            } while(!jogar(tabuleiro, coluna_Computador, &jogador1));
+            } while(!jogar(tabuleiro, coluna_Computador, &jogador1, tabuleiro_explosivo));
 
             jogador1.quantidade_de_fichas++;
             if(verificarVitoria(tabuleiro, jogador1.id) == jogador1.id){
@@ -203,7 +204,7 @@ int main() {
             exibirTabuleiro(tabuleiro, jogador1.id, jogador2.id);
             do{
             coluna = (rand() % 7) + 1;
-            } while(!jogar(tabuleiro, coluna, &jogador2));
+            } while(!jogar(tabuleiro, coluna, &jogador2, tabuleiro_explosivo));
             
 
             jogador2.quantidade_de_fichas++;
