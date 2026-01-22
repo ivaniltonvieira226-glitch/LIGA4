@@ -156,5 +156,53 @@ int jogar(int tabuleiro[6][7], int coluna, Ficha *jogador, int tabulerio_explosa
     }
 
    
-    //função explosão e gravidade
-    
+    //função tentar explodir
+    void tentarexplodir(int tabuleiro[6][7], int tabuleiro_explosao[6][7], int i, int j){
+        if (tabuleiro_explosao[i][j] == 0){
+            return;
+        }
+
+        if (i == 0){
+            return;
+        }
+
+        int bomba = tabuleiro_explosao[i][j];
+
+        if (tabuleiro[i - 1] [j] == 0 || tabuleiro[i - 1][j] == bomba){
+            return;
+        }
+
+        kabum(tabuleiro, tabuleiro_explosao, i, j);
+}
+
+
+ // função Kabum
+   static void kabum(int tabuleiro[6][7], int tabuleiro_explosao[6][7], int i, int j){
+        if (i < 0 || i >= 6 || j < 0 || j >= 7){
+            return;
+        }
+
+        tabuleiro[i][j] = 0;
+        tabuleiro_explosao[i][j] = 0;
+
+        //cordenadas das 8 direções ao redor da bomba
+        int tL[8] = {-1, 1, 0, 0, -1, -1, 1, 1};
+        int tC[8] = {0, 0, -1, 1, -1, 1, -1, 1};
+
+        for (int m = 0; m < 8; m++){
+            int novoI = i + tL[m];
+            int novoJ = j + tC[m];
+
+            if (novoI >= 0 && novoI < 6 && novoJ >= 0 && novoJ < 7){
+              if (tabuleiro_explosao[novoI][novoJ] != 0){
+                  kabum(tabuleiro, tabuleiro_explosao, novoI, novoJ);
+              }
+
+              else{
+                    tabuleiro[novoI][novoJ] = 0;
+              }
+              
+            }
+        
+        }
+    }

@@ -20,6 +20,6 @@ int verificarEmpate(int tabuleiro[6][7]);
 int jogar(int tabuleiro[6][7], int coluna, Ficha *jogador, int tabuleiro_explosao[6][7]);
 void exibirTabuleiro(int tabuleiro[6][7], int id1, int id2);
 int Inteiro(int valor);
-
+void tentarexplodir(int tabuleiro[6][7], int tabuleiro_explosao[6][7], int i, int j);
 
 #endif

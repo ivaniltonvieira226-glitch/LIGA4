@@ -122,7 +122,6 @@ int main() {
             } while(1);
 
             jogador1.quantidade_de_fichas++;
-
             if (verificarVitoria(tabuleiro, jogador1.id) == jogador1.id){
                 exibirTabuleiro(tabuleiro, jogador1.id, jogador2.id);
                 printf("%s, Você venceu!\n\n", jogador1.user);
