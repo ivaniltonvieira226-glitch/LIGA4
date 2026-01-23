@@ -37,7 +37,7 @@ int main() {
 
         while(1){
 
-            exibirTabuleiro(tabuleiro, jogador1.id, jogador2.id);
+            exibirTabuleiro(tabuleiro, jogador1.id, jogador2.id, tabuleiro_explosivo);
             int coluna, inteiro;
             printf("%s, escolha uma coluna (1-7) para jogar: ", jogador1.user);
             
@@ -54,18 +54,19 @@ int main() {
                 }
             } while(1);
             
+
             jogador1.quantidade_de_fichas++;
 
             //Logica para verificar vitória do player 1
             if (verificarVitoria(tabuleiro, jogador1.id) == jogador1.id){
-                exibirTabuleiro(tabuleiro, jogador1.id, jogador2.id);
+                exibirTabuleiro(tabuleiro, jogador1.id, jogador2.id, tabuleiro_explosivo);
                 printf("Parabéns %s! Você venceu!\n\n", jogador1.user);
                 printf("Fichas utilizadas: %d\n\n", jogador1.quantidade_de_fichas);
                 break;
             }
             //Logica para verificar empate
             if (verificarEmpate(tabuleiro)){
-                exibirTabuleiro(tabuleiro, jogador1.id, jogador2.id);
+                exibirTabuleiro(tabuleiro, jogador1.id, jogador2.id, tabuleiro_explosivo);
                 printf("Empate! O tabuleiro está cheio.\n");
                 break;
             }
@@ -79,7 +80,7 @@ int main() {
             jogador2.quantidade_de_fichas++;
 
             if (verificarVitoria(tabuleiro, jogador2.id) == jogador2.id){
-                exibirTabuleiro(tabuleiro,jogador1.id, jogador2.id);
+                exibirTabuleiro(tabuleiro,jogador1.id, jogador2.id, tabuleiro_explosivo);
                 printf("O %s venceu! Tente novamente.\n", jogador2.user);
                 printf("Fichas utilizadas: %d\n\n", jogador2.quantidade_de_fichas);
                 break;
@@ -98,8 +99,8 @@ int main() {
         scanf("%s", jogador2.user);
 
         while(1){
-            
-            exibirTabuleiro(tabuleiro, jogador1.id, jogador2.id);
+
+            exibirTabuleiro(tabuleiro, jogador1.id, jogador2.id, tabuleiro_explosivo);
             int coluna, inteiro, fichaip;
 
             //Logica para usar outras fichas do jogador 1
@@ -117,26 +118,35 @@ int main() {
             else if(!jogar(tabuleiro, coluna, &jogador1, tabuleiro_explosivo)){
                 printf("\nColuna inválida ou cheia. Tente novamente.\n");
             }
-
+        
             else { break;}
             } while(1);
+            //logica da explosão com a gravidade
+            for (int i = 0; i < 6; i++){
+                for (int j = 0; j < 7; j++){
+                    tentarexplodir(tabuleiro, tabuleiro_explosivo, i, j);
+                }
+            }
+            gravidade(tabuleiro);
 
             jogador1.quantidade_de_fichas++;
+
             if (verificarVitoria(tabuleiro, jogador1.id) == jogador1.id){
-                exibirTabuleiro(tabuleiro, jogador1.id, jogador2.id);
+                exibirTabuleiro(tabuleiro, jogador1.id, jogador2.id, tabuleiro_explosivo);
                 printf("%s, Você venceu!\n\n", jogador1.user);
                 printf("Fichas utilizadas: %d\n\n", jogador1.quantidade_de_fichas);
                 break;
             }
 
             if(verificarEmpate(tabuleiro)){
-                exibirTabuleiro(tabuleiro, jogador1.id, jogador2.id);
+                exibirTabuleiro(tabuleiro, jogador1.id, jogador2.id, tabuleiro_explosivo);
                 printf("Empate! O tabuleiro está cheio.\n");
                 break;
             }
 
-            exibirTabuleiro(tabuleiro, jogador1.id, jogador2.id);
+            exibirTabuleiro(tabuleiro, jogador1.id, jogador2.id, tabuleiro_explosivo);
             //Logica para usar outras fichas do jogador 2
+
             printf("Escolha qual ficha vai usar:\n");
             printf("1.Comum 2.Portal 3.Explosiva\n");
             scanf("%d", &jogador2.tipo_de_ficha);
@@ -154,19 +164,25 @@ int main() {
                     break;
                 }
             } while(1);
-            
+            //logica da explosão com a gravidade
+            for (int i = 0; i < 6; i++){
+                for (int j = 0; j < 7; j++){
+                    tentarexplodir(tabuleiro, tabuleiro_explosivo, i, j);
+                }
+            }
+            gravidade(tabuleiro);
 
             jogador2.quantidade_de_fichas++;
 
              if (verificarVitoria(tabuleiro, jogador2.id) == jogador2.id){
-                exibirTabuleiro(tabuleiro, jogador1.id, jogador2.id);
+                exibirTabuleiro(tabuleiro, jogador1.id, jogador2.id, tabuleiro_explosivo);
                 printf("%s, Você venceu!\n", jogador2.user);
                 printf("Fichas utilizadas: %d\n\n", jogador2.quantidade_de_fichas);
                 break;
             }
 
             if (verificarEmpate(tabuleiro)){
-                exibirTabuleiro(tabuleiro, jogador1.id, jogador2.id);
+                exibirTabuleiro(tabuleiro, jogador1.id, jogador2.id, tabuleiro_explosivo);
                 printf("Empate! O tabuleiro está cheio.\n");
                 break;
             }
@@ -179,7 +195,7 @@ int main() {
         strcpy(jogador2.user, "Komputer");
 
         while(1){
-            exibirTabuleiro(tabuleiro, jogador1.id, jogador2.id);
+            exibirTabuleiro(tabuleiro, jogador1.id, jogador2.id, tabuleiro_explosivo);
             int coluna_Computador, coluna;
 
             do{
@@ -188,19 +204,19 @@ int main() {
 
             jogador1.quantidade_de_fichas++;
             if(verificarVitoria(tabuleiro, jogador1.id) == jogador1.id){
-                exibirTabuleiro(tabuleiro, jogador1.id, jogador2.id);
+                exibirTabuleiro(tabuleiro, jogador1.id, jogador2.id, tabuleiro_explosivo);
                 printf("%s, Você Venceu!\n\n", jogador1.user);
                 printf("Fichas utilizadas: %d\n\n", jogador1.quantidade_de_fichas);
                 break;
             }
             
             if(verificarEmpate(tabuleiro)){
-                exibirTabuleiro(tabuleiro, jogador1.id, jogador2.id);
+                exibirTabuleiro(tabuleiro, jogador1.id, jogador2.id, tabuleiro_explosivo);
                 printf("Empate!. O tabuleiro está cheio.\n");
                 break;
             }
-            
-            exibirTabuleiro(tabuleiro, jogador1.id, jogador2.id);
+
+            exibirTabuleiro(tabuleiro, jogador1.id, jogador2.id, tabuleiro_explosivo);
             do{
             coluna = (rand() % 7) + 1;
             } while(!jogar(tabuleiro, coluna, &jogador2, tabuleiro_explosivo));
@@ -209,14 +225,14 @@ int main() {
             jogador2.quantidade_de_fichas++;
 
             if(verificarVitoria(tabuleiro, jogador2.id) == jogador2.id){
-                exibirTabuleiro(tabuleiro, jogador1.id, jogador2.id);
+                exibirTabuleiro(tabuleiro, jogador1.id, jogador2.id, tabuleiro_explosivo);
                 printf("%s, Você Venceu!\n", jogador2.user);
                 printf("Fichas utilizadas: %d\n\n", jogador2.quantidade_de_fichas);
                 break;
             }
             
             if(verificarEmpate(tabuleiro)){
-                exibirTabuleiro(tabuleiro, jogador1.id, jogador2.id);
+                exibirTabuleiro(tabuleiro, jogador1.id, jogador2.id, tabuleiro_explosivo);
                 printf("Empate!. O tabuleiro está cheio.\n");
                 break;
             }

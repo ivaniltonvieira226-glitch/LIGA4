@@ -131,7 +131,7 @@ int jogar(int tabuleiro[6][7], int coluna, Ficha *jogador, int tabulerio_explosa
 
 
     //função exibir tabuleiro
-    void exibirTabuleiro(int tabuleiro[6][7], int id1, int id2){
+    void exibirTabuleiro(int tabuleiro[6][7], int id1, int id2, int tabuleiro_explosao[6][7]){
         printf("============LIG4++============\n");
         printf("\n");
         printf("  1   2   3   4   5   6   7  \n");
@@ -140,10 +140,18 @@ int jogar(int tabuleiro[6][7], int coluna, Ficha *jogador, int tabulerio_explosa
             printf("|");
             for(int j = 0; j < 7;j++){
                 if(id1 == tabuleiro[i][j]){
-                    printf(" X |");
+                    printf(" X");
+                    if (tabuleiro_explosao[i][j] != 0){
+                        printf("k");
+                    }
+                    printf(" |");
                 }
                 else if(id2 == tabuleiro[i][j]){
-                    printf(" O |");
+                    printf(" O");
+                    if (tabuleiro_explosao[i][j] != 0){
+                        printf("k");
+                    }
+                    printf(" |");
                 }
                 else{
                 printf(" - |");
@@ -204,5 +212,20 @@ int jogar(int tabuleiro[6][7], int coluna, Ficha *jogador, int tabulerio_explosa
               
             }
         
+        }
+    }
+
+
+// gravidade
+
+    void gravidade(int tabuleiro[6][7]){
+        for(int j = 0; j < 7; j++){
+            for (int i = 5; i > 0; i--){
+                if (tabuleiro[i][j] == 0 && tabuleiro[i - 1][j] != 0){
+                    int temp = tabuleiro[i - 1][j];
+                    tabuleiro[i - 1][j] = 0;
+                    tabuleiro[i][j] = temp;
+                }
+            }
         }
     }
