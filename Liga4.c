@@ -101,12 +101,23 @@ int main() {
         while(1){
 
             exibirTabuleiro(tabuleiro, jogador1.id, jogador2.id, tabuleiro_explosivo);
-            int coluna, inteiro, fichaip;
+            int coluna, inteiro;
 
             //Logica para usar outras fichas do jogador 1
             printf("Escolha qual ficha vai usar:\n");
             printf("1.Comum 2.Portal 3.Explosiva\n");
+           
+           do{
             scanf("%d", &jogador1.tipo_de_ficha);
+            if (jogador1.tipo_de_ficha < 1 || jogador1.tipo_de_ficha > 3){
+
+                printf("Opção inválida. Tente novamente.\n");
+
+            }
+            else{
+                break;
+            }
+           } while(1);
 
             printf("%s, escolha uma coluna (1-7) para jogar: ", jogador1.user);
 
@@ -121,13 +132,18 @@ int main() {
         
             else { break;}
             } while(1);
-            //logica da explosão com a gravidade
+
+            //logica da explosão
             for (int i = 0; i < 6; i++){
                 for (int j = 0; j < 7; j++){
                     tentarexplodir(tabuleiro, tabuleiro_explosivo, i, j);
                 }
             }
-            gravidade(tabuleiro);
+
+            // for na gravidade para poder aplicar varias vezes
+            for (int j = 0; j < 6; j++){
+                gravidade(tabuleiro);
+            }
 
             jogador1.quantidade_de_fichas++;
 
@@ -145,13 +161,24 @@ int main() {
             }
 
             exibirTabuleiro(tabuleiro, jogador1.id, jogador2.id, tabuleiro_explosivo);
-            //Logica para usar outras fichas do jogador 2
 
+            //Logica para usar outras fichas do jogador 2
             printf("Escolha qual ficha vai usar:\n");
             printf("1.Comum 2.Portal 3.Explosiva\n");
+
+            do{
             scanf("%d", &jogador2.tipo_de_ficha);
+             if (jogador2.tipo_de_ficha < 1 || jogador2.tipo_de_ficha > 3){
+                
+                printf("Opção inválida. Tente novamente.\n");
+            }
+            else{
+                break;
+            }
+           } while(1);
 
             printf("%s, escolha uma coluna (1-7) para jogar: ", jogador2.user);
+
             do{
             inteiro = scanf("%d", &coluna);
                 if (Inteiro(inteiro)){
@@ -170,8 +197,9 @@ int main() {
                     tentarexplodir(tabuleiro, tabuleiro_explosivo, i, j);
                 }
             }
+            for (int j = 0; j < 6; j++){
             gravidade(tabuleiro);
-
+            }
             jogador2.quantidade_de_fichas++;
 
              if (verificarVitoria(tabuleiro, jogador2.id) == jogador2.id){

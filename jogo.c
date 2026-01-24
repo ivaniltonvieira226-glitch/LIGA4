@@ -142,19 +142,22 @@ int jogar(int tabuleiro[6][7], int coluna, Ficha *jogador, int tabulerio_explosa
                 if(id1 == tabuleiro[i][j]){
                     printf(" X");
                     if (tabuleiro_explosao[i][j] != 0){
-                        printf("k");
+                        printf("*|");
                     }
+                    else{
                     printf(" |");
-                }
+                }}
                 else if(id2 == tabuleiro[i][j]){
                     printf(" O");
                     if (tabuleiro_explosao[i][j] != 0){
-                        printf("k");
+                        printf("k|");
                     }
+                    else{
                     printf(" |");
                 }
+                }
                 else{
-                printf(" - |");
+                printf("   |");
                 }
             }
             printf("\n");
