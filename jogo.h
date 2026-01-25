@@ -10,7 +10,7 @@ typedef enum{
 
 // Struct do jogador
 typedef struct {
-    int id, quantidade_de_fichas;
+    int id, fichas_comuns, fichas_portais, fichas_explosivas;
     Tipo_ficha tipo_de_ficha;
     char user[100];
 } Ficha;

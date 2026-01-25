@@ -75,7 +75,7 @@ int Inteiro(int valor){
 
 //Função para jogar
 
-int jogar(int tabuleiro[6][7], int coluna, Ficha *jogador, int tabulerio_explosao[6][7]){
+int jogar(int tabuleiro[6][7], int coluna, Ficha *jogador, int tabuleiro_explosao[6][7]){
         if (coluna < 1 || coluna > 7){
             return 0;
         }
@@ -93,18 +93,20 @@ int jogar(int tabuleiro[6][7], int coluna, Ficha *jogador, int tabulerio_explosa
         //Ficha portal    
         else if(jogador->tipo_de_ficha == FICHA_PORTAL){
             
-            
+            jogador->fichas_portais--;
             // ficha portal substitui a primeira ficha do oponente que encontrar na coluna
             for (int i = 0; i < 6; i++){
                 if (tabuleiro[i][coluna-1] != 0){
                     if(tabuleiro[i][coluna-1] != jogador->id){
                         tabuleiro[i][coluna-1] = 0;
+                        tabuleiro_explosao[i][coluna-1] = 0;
                         return 1;
                     }
                     else if(tabuleiro[i][coluna-1] == jogador->id){
                         return 1;
                     }
                 }
+                
                 else if(i == 5){
                     return 1;
                 }  
@@ -119,11 +121,13 @@ int jogar(int tabuleiro[6][7], int coluna, Ficha *jogador, int tabulerio_explosa
                 if (tabuleiro[i][coluna - 1] == 0){
                     tabuleiro[i][coluna - 1] = jogador->id;
 
-                    tabulerio_explosao[i][coluna - 1] = jogador->id;
-
+                    tabuleiro_explosao[i][coluna - 1] = jogador->id;
+                    jogador->fichas_explosivas--;
                     return 1;
                 }
+        
             }
+            return 0;
         }
 
     }    
@@ -150,7 +154,7 @@ int jogar(int tabuleiro[6][7], int coluna, Ficha *jogador, int tabulerio_explosa
                 else if(id2 == tabuleiro[i][j]){
                     printf(" O");
                     if (tabuleiro_explosao[i][j] != 0){
-                        printf("k|");
+                        printf("*|");
                     }
                     else{
                     printf(" |");
