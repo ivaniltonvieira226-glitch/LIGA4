@@ -44,6 +44,31 @@ int main() {
 
             exibirTabuleiro(tabuleiro, jogador1.id, jogador2.id, tabuleiro_explosivo);
             int coluna, inteiro;
+
+            printf("1.Comum = %d\n2.Portal = %d\n3.Explosiva = %d\n\n", jogador1.fichas_comuns, jogador1.fichas_portais, jogador1.fichas_explosivas);
+            printf("Escolha qual ficha vai usar:\n");
+
+            do{
+            scanf("%d", &jogador1.tipo_de_ficha);
+            
+            if (jogador1.tipo_de_ficha < 1 || jogador1.tipo_de_ficha > 3){
+                printf("Opção inválida. Tente novamente.\n");
+
+            }
+            // verifica se o jogador possui fichas portais ou explosivas
+
+            else if (jogador1.tipo_de_ficha == 2 && jogador1.fichas_portais <= 0){
+                printf("Você não possui fichas portais. Escolha outra ficha.\n");
+            }
+            else if (jogador1.tipo_de_ficha == 3 && jogador1.fichas_explosivas <= 0){
+                printf("Você não possui fichas explosivas. Escolha outra ficha.\n");
+            }
+
+            else{
+                break;
+            }
+           } while(1);
+
             printf("%s, escolha uma coluna (1-7) para jogar: ", jogador1.user);
             
             do{
@@ -59,6 +84,18 @@ int main() {
                 }
             } while(1);
 
+            
+            //logica da explosão
+            for (int i = 0; i < 6; i++){
+                for (int j = 0; j < 7; j++){
+                    tentarexplodir(tabuleiro, tabuleiro_explosivo, i, j);
+                }
+            }
+
+            // for na gravidade para poder aplicar varias vezes
+            for (int j = 0; j < 6; j++){
+                gravidade(tabuleiro);
+            }
 
             jogador1.fichas_comuns--;
 
@@ -70,17 +107,54 @@ int main() {
                 break;
             }
             //Logica para verificar empate
-            if (verificarEmpate(tabuleiro)){
+            if (verificarEmpate(tabuleiro) || (jogador1.fichas_comuns <= 0 && jogador2.fichas_comuns <= 0)){
                 exibirTabuleiro(tabuleiro, jogador1.id, jogador2.id, tabuleiro_explosivo);
-                printf("Empate! O tabuleiro está cheio.\n");
+                printf("Empate! O tabuleiro está cheio ou acabou o número de fichas.\n");
                 break;
             }
+            rodadas++;
+            if (rodadas % 5 == 0){
+                jogador1.fichas_portais++;
+                jogador2.fichas_portais++;
+                jogador1.fichas_explosivas++;
+                jogador2.fichas_explosivas++;
+            }
+            
 
+            int tipoDeFichaComputador;
+            // Lógica para o computador escolher o tipo de ficha
+
+               if (jogador2.fichas_portais == 0 && jogador2.fichas_explosivas == 0){
+                tipoDeFichaComputador = 1;
+                
+               }
+               else if(jogador2.fichas_explosivas == 0){
+                tipoDeFichaComputador = (rand() % 2) + 1;
+               }
+                else if(jogador2.fichas_portais == 0){
+                 tipoDeFichaComputador = (rand() % 2) * 2 + 1;
+                }
+                else{
+                 tipoDeFichaComputador = (rand() % 3) + 1;
+                }
+
+            jogador2.tipo_de_ficha = tipoDeFichaComputador;
             // Logica da jogada do computador
             int colunaComputador;
             do{
             colunaComputador = (rand() % 7) + 1;
-            } while(!jogar(tabuleiro, colunaComputador, &jogador2, tabuleiro));
+            } while(!jogar(tabuleiro, colunaComputador, &jogador2, tabuleiro_explosivo));
+
+            //logica da explosão do computador
+            for (int i = 0; i < 6; i++){
+                for (int j = 0; j < 7; j++){
+                    tentarexplodir(tabuleiro, tabuleiro_explosivo, i, j);
+                }
+            }
+            // for na gravidade para poder aplicar varias vezes
+            for (int j = 0; j < 6; j++){
+            gravidade(tabuleiro);
+            }
 
             jogador2.fichas_comuns--;
 
@@ -90,10 +164,18 @@ int main() {
                 printf("Fichas utilizadas: %d\n\n", jogador2.fichas_comuns);
                 break;
             }
-            if (verificarEmpate(tabuleiro)){
+            if (verificarEmpate(tabuleiro) || (jogador1.fichas_comuns <= 0 && jogador2.fichas_comuns <= 0)){
                 exibirTabuleiro(tabuleiro, jogador1.id, jogador2.id, tabuleiro_explosivo);
-                printf("Empate! O tabuleiro está cheio.\n");
+                printf("Empate! O tabuleiro está cheio ou acabou o número de fichas.\n");
                 break;
+            }
+
+            rodadas++;
+            if (rodadas % 5 == 0){
+                jogador1.fichas_portais++;
+                jogador2.fichas_portais++;
+                jogador1.fichas_explosivas++;
+                jogador2.fichas_explosivas++;
             }
         }
         
@@ -173,15 +255,22 @@ int main() {
 
             if(verificarEmpate(tabuleiro) || (jogador1.fichas_comuns <= 0 && jogador2.fichas_comuns <= 0)){
                 exibirTabuleiro(tabuleiro, jogador1.id, jogador2.id, tabuleiro_explosivo);
-                printf("Empate! O tabuleiro está cheio.\n");
+                printf("Empate! O tabuleiro está cheio ou acabou o número de fichas.\n");
                 break;
+            }
+            rodadas++;
+            if (rodadas % 5 == 0){
+                jogador1.fichas_portais++;
+                jogador2.fichas_portais++;
+                jogador1.fichas_explosivas++;
+                jogador2.fichas_explosivas++;
             }
 
             exibirTabuleiro(tabuleiro, jogador1.id, jogador2.id, tabuleiro_explosivo);
 
             //Logica para usar outras fichas do jogador 2
             
-            printf("1.Comum = %d\n2.Portal = %d\n3.Explosiva = %d\n", jogador2.fichas_comuns, jogador2.fichas_portais, jogador2.fichas_explosivas);
+            printf("1.Comum = %d\n2.Portal = %d\n3.Explosiva = %d\n\n", jogador2.fichas_comuns, jogador2.fichas_portais, jogador2.fichas_explosivas);
             printf("Escolha qual ficha vai usar:\n");
 
             do{
@@ -234,7 +323,7 @@ int main() {
 
             if (verificarEmpate(tabuleiro) || (jogador1.fichas_comuns <= 0 && jogador2.fichas_comuns <= 0)){
                 exibirTabuleiro(tabuleiro, jogador1.id, jogador2.id, tabuleiro_explosivo);
-                printf("Empate! O tabuleiro está cheio.\n");
+                printf("Empate! O tabuleiro está cheio ou acabou o número de fichas.\n");
                 break;
             }
             rodadas++;
@@ -254,11 +343,38 @@ int main() {
 
         while(1){
             exibirTabuleiro(tabuleiro, jogador1.id, jogador2.id, tabuleiro_explosivo);
-            int coluna_Computador, coluna;
+            int coluna_Computador, coluna, tipoDeFichaComputador;
+
+            printf("1.Comum = %d\n2.Portal = %d\n3.Explosiva = %d\n\n", jogador1.fichas_comuns, jogador1.fichas_portais, jogador1.fichas_explosivas);
+
+            if (jogador1.fichas_portais == 0 && jogador1.fichas_explosivas == 0){
+                tipoDeFichaComputador = 1;
+            }
+            else if(jogador1.fichas_explosivas == 0){
+                tipoDeFichaComputador = (rand() % 2) + 1;
+            }
+            else if(jogador1.fichas_portais == 0){
+                tipoDeFichaComputador = (rand() % 2) * 2 + 1;
+            }
+            else{
+                tipoDeFichaComputador = (rand() % 3) + 1;
+            }
+            
+            jogador1.tipo_de_ficha = tipoDeFichaComputador;
 
             do{
             coluna_Computador = (rand() % 7) + 1;
             } while(!jogar(tabuleiro, coluna_Computador, &jogador1, tabuleiro_explosivo));
+
+            for (int i = 0; i < 6; i++){
+                for (int j = 0; j < 7; j++){
+                    tentarexplodir(tabuleiro, tabuleiro_explosivo, i, j);
+                }
+            }
+
+            for (int j = 0; j < 6; j++){
+                gravidade(tabuleiro);
+            }
 
             jogador1.fichas_comuns--;
 
@@ -269,13 +385,38 @@ int main() {
                 break;
             }
             
-            if(verificarEmpate(tabuleiro)){
+            if(verificarEmpate(tabuleiro) || (jogador1.fichas_comuns <= 0 && jogador2.fichas_comuns <= 0)){
                 exibirTabuleiro(tabuleiro, jogador1.id, jogador2.id, tabuleiro_explosivo);
-                printf("Empate!. O tabuleiro está cheio.\n");
+                printf("Empate!. O tabuleiro está cheio ou acabou o número de fichas.\n");
                 break;
             }
 
+            rodadas++;
+            if (rodadas % 5 == 0){
+                jogador1.fichas_portais++;
+                jogador2.fichas_portais++;
+                jogador1.fichas_explosivas++;
+                jogador2.fichas_explosivas++;
+            }
+
             exibirTabuleiro(tabuleiro, jogador1.id, jogador2.id, tabuleiro_explosivo);
+            printf("1.Comum = %d\n2.Portal = %d\n3.Explosiva = %d\n\n", jogador2.fichas_comuns, jogador2.fichas_portais, jogador2.fichas_explosivas);
+            if (jogador2.fichas_portais == 0 && jogador2.fichas_explosivas == 0){
+                tipoDeFichaComputador = 1;
+                
+            }
+            else if(jogador2.fichas_explosivas == 0){
+                tipoDeFichaComputador = (rand() % 2) + 1;
+            }
+            else if(jogador2.fichas_portais == 0){
+                 tipoDeFichaComputador = (rand() % 2) * 2 + 1;
+            }
+            else{
+                 tipoDeFichaComputador = (rand() % 3) + 1;
+            }
+
+            jogador2.tipo_de_ficha = tipoDeFichaComputador;
+
             do{
             coluna = (rand() % 7) + 1;
             } while(!jogar(tabuleiro, coluna, &jogador2, tabuleiro_explosivo));
@@ -290,12 +431,19 @@ int main() {
                 break;
             }
             
-            if(verificarEmpate(tabuleiro)){
+            if(verificarEmpate(tabuleiro) || (jogador1.fichas_comuns <= 0 && jogador2.fichas_comuns <= 0)){
                 exibirTabuleiro(tabuleiro, jogador1.id, jogador2.id, tabuleiro_explosivo);
-                printf("Empate!. O tabuleiro está cheio.\n");
+                printf("Empate!. O tabuleiro está cheio ou acabou o número de fichas.\n");
                 break;
             }
 
+            rodadas++;
+            if (rodadas % 5 == 0){
+                jogador1.fichas_portais++;
+                jogador2.fichas_portais++;
+                jogador1.fichas_explosivas++;
+                jogador2.fichas_explosivas++;
+            }
         }
     }  
     else if (tema == 4){
