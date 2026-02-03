@@ -236,3 +236,34 @@ int jogar(int tabuleiro[6][7], int coluna, Ficha *jogador, int tabuleiro_explosa
             }
         }
     }
+
+// --- Função Hall da Fama ---
+void atualizarHall(Ficha vencedor, Hall top3[]) {
+    // Verifica se a pontuação entra no Top 3 (menor pontuação é melhor)
+    if (vencedor.quantidade_de_fichas < top3[2].jogadas) {
+        printf("Novo recorde! Voce entrou no Hall dos Campeoes!\n");
+
+        // 1. Substitui o último lugar
+        top3[2].jogadas = vencedor.quantidade_de_fichas;
+        strcpy(top3[2].nome, vencedor.user);
+
+        // 2. Ordenação Bubble Sort 
+        Hall temp;
+        for (int j = 3; j > 1; j--) {
+            for (int i = 0; i < j - 1; i++) {
+                if (top3[i].jogadas > top3[i + 1].jogadas) {
+                    temp = top3[i];
+                    top3[i] = top3[i + 1];
+                    top3[i + 1] = temp;
+                }
+            }
+        }
+
+        // 3. Salva no arquivo 
+        FILE *fptr = fopen("hall.bin", "wb");
+        if (fptr != NULL) {
+            fwrite(top3, sizeof(Hall), 3, fptr);
+            fclose(fptr);
+        }
+    }
+}
