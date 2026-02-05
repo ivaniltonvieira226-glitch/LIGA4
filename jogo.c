@@ -64,13 +64,8 @@ int verificarEmpate(int tabuleiro[6][7]){
 }
 //Sempre valor inteiro
 
-int Inteiro(int valor){
-    if (valor != 1){
-        while (getchar() != '\n');
-        return 1;
-    }
-
-    return 0;
+void Inteiro(){
+    while(getchar() != '\n');
 }
 
 //Função para jogar

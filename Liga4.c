@@ -32,8 +32,8 @@ int main() {
         printf("Escolha uma opcao: ");
         
         int retorno = scanf("%d", &menu_principal);
-
-        if (Inteiro(retorno)) {
+        Inteiro(); // Limpa o buffer de entrada
+        if (retorno != 1) {
             printf("\n[ERRO] Entrada invalida! Por favor, digite um numero.\n");
             continue; 
         }
@@ -59,7 +59,20 @@ int main() {
         if (menu_principal == 1) {
             rodadas = 0;
             printf("Escolha o tema do jogo:\n1 - Individual(Player contra o computador)\n2 - Dois players\n3 - Simulado(computador contra computador)\n4 - Voltar ao Menu\n");
-            scanf("%d", &tema);
+            do {
+            int ok = scanf("%d", &tema);
+            Inteiro();
+            if(ok != 1){
+                printf("Entrada inválida. Tente novamente.\n");
+            }
+            else if(tema < 1 || tema > 4){
+                printf("Opção inválida. Tente novamente.\n");
+            }
+            else{
+                break;
+            }
+            
+            }while(1);
 
             if(tema == 4) continue;
 
@@ -100,12 +113,19 @@ int main() {
                     printf("Escolha qual ficha vai usar:\n");
 
                     do{
-                    scanf("%d", &jogador1.tipo_de_ficha);
-                    
-                    if (jogador1.tipo_de_ficha < 1 || jogador1.tipo_de_ficha > 3){
+                    int ok = scanf("%d", &jogador1.tipo_de_ficha);
+                    Inteiro();
+                    if(ok != 1){
+                        printf("Entrada inválida. Tente novamente.\n");
+                    }
+
+                    else if (jogador1.tipo_de_ficha < 1 || jogador1.tipo_de_ficha > 3){
                         printf("Opção inválida. Tente novamente.\n");
 
                     }
+                    
+
+
                     // verifica se o jogador possui fichas portais ou explosivas
 
                     else if (jogador1.tipo_de_ficha == 2 && jogador1.fichas_portais <= 0){
@@ -124,7 +144,8 @@ int main() {
                     
                     do{
                         inteiro = scanf("%d", &coluna);
-                        if(Inteiro(inteiro)){
+                        Inteiro();
+                        if(inteiro != 1){
                             printf("Digite um valor inteiro.\n");
                         }
                         else if(!jogar(tabuleiro, coluna, &jogador1, tabuleiro_explosivo)){
@@ -248,7 +269,7 @@ int main() {
                 while(1){
 
                     exibirTabuleiro(tabuleiro, jogador1.id, jogador2.id, tabuleiro_explosivo);
-                    int coluna, inteiro;
+                    int coluna;
 
                     //Logica para usar outras fichas do jogador 1
                     
@@ -256,9 +277,13 @@ int main() {
                     printf("Escolha qual ficha vai usar:\n");
                 
                 do{
-                    scanf("%d", &jogador1.tipo_de_ficha);
-                    
-                    if (jogador1.tipo_de_ficha < 1 || jogador1.tipo_de_ficha > 3){
+                    int ok = scanf("%d", &jogador1.tipo_de_ficha);
+                    Inteiro();
+                    if (ok != 1){
+                        printf("Entrada inválida. Tente novamente.\n");
+                    }
+
+                    else if (jogador1.tipo_de_ficha < 1 || jogador1.tipo_de_ficha > 3){
                         printf("Opção inválida. Tente novamente.\n");
 
                     }
@@ -279,8 +304,12 @@ int main() {
                     printf("%s, escolha uma coluna (1-7) para jogar: ", jogador1.user);
 
                     do{
-                    inteiro = scanf("%d", &coluna);
-                    if(!jogar(tabuleiro, coluna, &jogador1, tabuleiro_explosivo)){
+                    int ok = scanf("%d", &coluna);
+                    Inteiro();
+                    if (ok != 1){
+                        printf("Digite um valor inteiro.\n");
+                    }
+                    else if(!jogar(tabuleiro, coluna, &jogador1, tabuleiro_explosivo)){
                         printf("\nColuna inválida ou cheia. Tente novamente.\n");
                     }
                 
@@ -354,13 +383,17 @@ int main() {
                     printf("%s, escolha uma coluna (1-7) para jogar: ", jogador2.user);
 
                     do{
-                    inteiro = scanf("%d", &coluna);
-                        if(!jogar(tabuleiro, coluna, &jogador2, tabuleiro_explosivo)){
+                    int ok = scanf("%d", &coluna);
+                    Inteiro();
+                    if (ok != 1){
+                        printf("Digite um valor inteiro.\n");
+                    }
+                    else if(!jogar(tabuleiro, coluna, &jogador2, tabuleiro_explosivo)){
                         printf("\nColuna inválida ou cheia. Tente novamente.\n");
                         }
-                        else{
-                            jogador2.quantidade_de_fichas++;
-                            break;
+                    else{
+                        jogador2.quantidade_de_fichas++;
+                        break;
                         }
                     } while(1);
                     //logica da explosão do jogador 2
